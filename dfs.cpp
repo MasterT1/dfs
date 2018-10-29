@@ -46,10 +46,15 @@ Edges getEdges( )
 	  return adj_list;
 
 }
+int max (int a, int b, int c)
+{
+	int m = a > b? a:b;
+	return m > c? m:c;
+}
 
 void dfs(unsigned v, Graph& g, unsigned& count)
 {
-	count++;
+	count++;	
 	g.V[v].visited = count;
 	
   	for(auto w: g.E[v])//iterate over neighbours of node v
@@ -65,11 +70,13 @@ void mainDFS(const Edges& E)
   G.V.resize(E.size());
   G.E = E; //Hopefully the compiler optimizes this 
   unsigned counter = 0;
+  unsigned component_num = 0;
   
   for(unsigned i = 0; i < G.V.size(); i++)//iterate over nodes
     {
 	   if(G.V[i].visited == 0)
-	     {		     
+	     {
+		   component_num++; 		     
 	       dfs(i, G, counter);		
 	      }  
      }  	
@@ -78,7 +85,7 @@ void mainDFS(const Edges& E)
    
   for(unsigned i =0; i < G.V.size();i++)
   {
-    cerr << i<<" visited "<< G.V[i].visited << endl;
+    cerr << i<<" visited "<< G.V[i].visited << " Component Number" << component_num << endl;
    }
     
 }
